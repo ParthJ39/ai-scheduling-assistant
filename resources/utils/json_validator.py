@@ -1,5 +1,5 @@
-import logging
 import re
+import logging
 from datetime import datetime
 from typing import Any, Dict, List
 
@@ -44,7 +44,8 @@ class JSONValidator:
             self._check_attendees_output(data['Attendees'])
         return self._result()
 
-    def sanitize_request(self, data: Dict) -> Dict:
+    @staticmethod
+    def sanitize_request(data: Dict) -> Dict:
         cleaned = data.copy()
         for key in ('EmailContent', 'Subject', 'From', 'Location'):
             if isinstance(cleaned.get(key), str):
