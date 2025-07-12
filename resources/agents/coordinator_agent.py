@@ -3,8 +3,8 @@ import logging
 import traceback
 from typing import List, Dict
 from tests.mock_data import USER_PREFERENCES
-from negotiator_agent import NegotiatorAgent
-from participants_agent import ParticipantAgent
+from .negotiator_agent import NegotiatorAgent
+from .participants_agent import ParticipantAgent
 from resources.services.llm_service import LLMService
 from resources.services.calendar_service import CalendarService
 from resources.utils.json_validator import JSONValidator
