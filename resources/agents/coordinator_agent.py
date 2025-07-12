@@ -1,6 +1,6 @@
 import re
 import logging
-from datetime import datetime
+import traceback
 from typing import List, Dict
 from participants_agent import ParticipantAgent
 from negotiator_agent import NegotiatorAgent
@@ -19,7 +19,7 @@ class CoordinatorAgent:
         self.calendar_service = CalendarService()
         self.validator = JSONValidator()
         self.participants = {}
-        
+
     def _extract_duration_from_email(self, email_content: str) -> str:
         patterns = [
             r'(\d+)\s*minutes?',
@@ -131,7 +131,6 @@ class CoordinatorAgent:
                 )
         except Exception as e:
             logging.error("Error in schedule_meeting: %s", e)
-            import traceback
             traceback.print_exc()
             return self._format_error_response_correct_format(str(e), meeting_request)
     
@@ -215,24 +214,3 @@ class CoordinatorAgent:
                 }
             }
         }
-    
-    async def get_system_status(self) -> Dict:
-        try:
-            llm_status = self.llm.health_check()
-            return {
-                'status': 'healthy',
-                'timestamp': datetime.now().isoformat(),
-                'components': {
-                    'llm_service': llm_status,
-                    'calendar_service': {'status': 'healthy'},
-                    'validator': {'status': 'healthy'},
-                    'negotiator': {'status': 'healthy'}
-                },
-                'participants_loaded': len(self.participants)
-            }
-        except Exception as e:
-            return {
-                'status': 'unhealthy',
-                'error': str(e),
-                'timestamp': datetime.now().isoformat()
-            }

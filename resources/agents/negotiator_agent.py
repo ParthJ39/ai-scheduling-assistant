@@ -1,10 +1,9 @@
-import logging
-import asyncio
-from datetime import datetime, timedelta
-from typing import List, Dict, Any
-from resources.services.llm_service import LLMService
-from utils.email_parser import EmailParser
 import pytz
+import logging
+from typing import List, Dict, Any
+from datetime import datetime, timedelta
+from resources.services.llm_service import LLMService
+from resources.utils.email_parser import EmailParser
 
 logger = logging.getLogger(__name__)
 

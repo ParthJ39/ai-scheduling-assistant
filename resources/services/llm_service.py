@@ -54,7 +54,6 @@ class LLMService:
 
         return result['choices'][0]['text'].strip()
 
-
     def _mock_response(self, prompt: str) -> str:
         """Mock response when LLM services are unavailable"""
         prompt_lower = prompt.lower()

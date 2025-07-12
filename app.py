@@ -1,9 +1,7 @@
-import json
 import asyncio
 import traceback
 from logger import logger
-from datetime import datetime
-# from mock_data import TEST_SCENARIOS
+from tests.mock_data import TEST_SCENARIOS
 from flask import Flask, request, jsonify
 from resources.agents.coordinator_agent import CoordinatorAgent
 from resources.utils.json_validator import clean_json_request
@@ -45,4 +43,37 @@ def receive():
         return jsonify({
             "error": "Error processing request.",
             "Request_id": request.get_json().get('Request_id', 'unknown') if request.get_json() else 'unknown'
+        }), 500
+
+
+@app.route('/demo/<scenario_name>', methods=['GET'])
+def demo_scenario(scenario_name):
+    """Demo endpoint for testing scenarios"""
+    if scenario_name not in TEST_SCENARIOS:
+        available_scenarios = list(TEST_SCENARIOS.keys())
+        return jsonify({
+            "error": "Scenario not found",
+            "available_scenarios": available_scenarios
+        }), 404
+
+    try:
+        scenario_data = TEST_SCENARIOS[scenario_name]
+        print(f"\nRunning Demo Scenario: {scenario_name}")
+        print(f"Scenario description: {scenario_data.get('EmailContent', '')}")
+
+        result = asyncio.run(coordinator.schedule_meeting(scenario_data))
+
+        return jsonify({
+            "scenario": scenario_name,
+            "input": scenario_data,
+            "result": result,
+            "success": result.get('EventStart') is not None and 'error' not in result
+        })
+
+    except Exception as e:
+        print(f"Demo scenario error: {e}")
+        traceback.print_exc()
+        return jsonify({
+            "scenario": scenario_name,
+            "error": str(e)
         }), 500
