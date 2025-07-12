@@ -2,7 +2,7 @@ import logging
 import asyncio
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
-from services.llm_service import LLMService
+from resources.services.llm_service import LLMService
 from utils.email_parser import EmailParser
 import pytz
 

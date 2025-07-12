@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from typing import Any, Dict, List
 
 import pytz
-from services.llm_service import LLMService
+from resources.services.llm_service import LLMService
 
 logger = logging.getLogger(__name__)
 
