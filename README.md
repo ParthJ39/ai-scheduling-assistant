@@ -193,25 +193,17 @@ curl -X POST http://localhost:5000/schedule \
 
 ### Why DeepSeek-LLM-7B-Chat?
 
-1. **Multilingual Excellence**: 7-billion-parameter model trained on 2+ trillion tokens in English and Chinese, providing deep understanding of scheduling language across cultures.
+1.Handles Long, Complex Contexts:
+    Multi-Head Latent Attention (MLA) lets DeepSeek-7B process entire e-mail threads, multiple calendars, and extended conversations in a single pass—perfect for scheduling and conflict resolution.
 
-2. **Optimized for Chat**: Fine-tuned using supervised learning and Direct Preference Optimization, making it exceptionally skilled at:
-   - Interpreting free-form meeting requests
-   - Conditional rescheduling logic
-   - Understanding nuanced calendar constraints
+2.Fast and Memory-Efficient:
+    MLA technology means up to 5.8× faster inference and 93% less memory usage compared to standard models, so scheduling stays snappy even with large workloads.
 
-3. **Performance Optimized**: Architecture based on scaling-law research delivers optimal balance between depth and efficiency, enabling:
-   - Sub-second inference times
-   - High-throughput processing with vLLM
-   - Real-time scheduling responses
+3.128K Token Context Window:
+    Native support for up to 128,000 tokens enables DeepSeek-7B to understand and reason over even the most detailed scheduling histories and requests.
 
-4. **Cost-Effective**: Delivers equivalent fidelity to larger models while dramatically reducing:
-   - Hardware requirements
-   - Operational costs
-   - Response latency
-
-5. **Global Team Ready**: Bilingual training ensures robust performance across international teams and cross-cultural contexts.
-
+4.Optimized for On-Prem Deployment:
+    DeepSeek-7B’s efficient architecture runs smoothly on AMD MI300 hardware, enabling secure, real-time AI scheduling—no data leaves your servers.
 
 ## 🔮 Features
 
