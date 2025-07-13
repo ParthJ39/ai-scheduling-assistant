@@ -1,11 +1,12 @@
 # AMD MI300 GPU HACKATHON PROJECT
 **Agentic AI Meeting Scheduler**
 
-An intelligent meeting coordination system that autonomously schedules meetings, resolves conflicts, and optimizes calendars using natural language processing and AI-powered decision making.
+An intelligent meeting coordination system that autonomously schedules meetings, resolves conflicts, and optimizes calendars using AI-powered decision making.
 
 ## 🚀 Problem Statement
 
-Today's meeting coordination is bogged down by time-consuming back-and-forth, manual conflict resolution, and inefficient calendar use—challenges our AI assistant solves by autonomously scheduling meetings, rescheduling conflicts, and optimizing calendars for maximum efficiency.
+Today's meeting coordination is bogged down by time-consuming back-and-forth, manual conflict resolution, and inefficient calendar use challenges. 
+Our AI assistant solves this by autonomously scheduling meetings, rescheduling conflicts, and optimizing calendars for maximum efficiency.
 
 ## 📋 Problem Description
 
@@ -38,24 +39,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Environment Configuration
-
-Create a `.env` file with the following variables:
-
+Extracting Google Calendar Events - with Google Auth Tokens to pull Google Calendar Events.
 ```bash
-# Flask API Configuration
-FLASK_APP=app.py
-FLASK_ENV=development
-API_HOST=0.0.0.0
-API_PORT=5000
+1. Load user credentials from a token file.
+2. Fetch events between specified start/end dates using the Google Calendar API.
+````
 
-# vLLM Configuration
-VLLM_HOST=localhost
-VLLM_PORT=8000
-MODEL_NAME=deepseek-ai/deepseek-llm-7b-chat
-```
-
-### 4. Start the vLLM Server
+### 3. Start the vLLM Server
 vLLM is a high-performance inference engine that delivers up to 24x higher throughput than standard HuggingFace implementations through advanced memory management and continuous batching. Its PagedAttention algorithm dramatically reduces memory fragmentation, enabling efficient serving of large language models with minimal latency—perfect for real-time scheduling requests.
 
 ```bash
@@ -65,7 +55,7 @@ vllm serve \
   --port $VLLM_PORT
 ```
 
-### 5. Run the Flask Application
+### 4. Run the Flask Application
 
 ```bash
 python app.py
@@ -95,17 +85,97 @@ python app.py
 **Response Format:**
 ```json
 {
-  "Request_id": "6118b54f-907b-4451-8d48-dd13d76033a5",
-  "EventStart": "2025-07-17T10:30:00+05:30",
-  "EventEnd": "2025-07-17T11:00:00+05:30",
-  "Subject": "Agentic AI Project Status Update",
-  "Location": "IIT Mumbai",
-  "Attendees": [
-    { "email": "userone.amd@gmail.com" },
-    { "email": "usertwo.amd@gmail.com" },
-    { "email": "userthree.amd@gmail.com" }
-  ],
-  "Status": "Scheduled"
+    "Request_id": "6118b54f-907b-4451-8d48-dd13d76033a5",
+    "Datetime": "09-07-2025T12:34:55",
+    "Location": "IIT Mumbai",
+    "From": "userone.amd@gmail.com",
+    "Attendees": [
+        {
+            "email": "userone.amd@gmail.com",
+            "events": [
+                {
+                    "StartTime": "2025-07-17T10:30:00+05:30",
+                    "EndTime": "2025-07-17T11:00:00+05:30",
+                    "NumAttendees": 3,
+                    "Attendees": [
+                        "userone.amd@gmail.com",
+                        "usertwo.amd@gmail.com",
+                        "userthree.amd@gmail.com"
+                    ],
+                    "Summary": "Agentic AI Project Status Update"
+                }
+            ]
+        },
+        {
+            "email": "usertwo.amd@gmail.com",
+            "events": [
+                {
+                    "StartTime": "2025-07-17T10:00:00+05:30",
+                    "EndTime": "2025-07-17T10:30:00+05:30",
+                    "NumAttendees": 3,
+                    "Attendees": [
+                        "userone.amd@gmail.com",
+                        "usertwo.amd@gmail.com",
+                        "userthree.amd@gmail.com"
+                    ],
+                    "Summary": "Team Meet"
+                },
+                {
+                    "StartTime": "2025-07-17T10:30:00+05:30",
+                    "EndTime": "2025-07-17T11:00:00+05:30",
+                    "NumAttendees": 3,
+                    "Attendees": [
+                        "userone.amd@gmail.com",
+                        "usertwo.amd@gmail.com",
+                        "userthree.amd@gmail.com"
+                    ],
+                    "Summary": "Agentic AI Project Status Update"
+                }
+            ]
+        },
+        {
+            "email": "userthree.amd@gmail.com",
+            "events": [
+                {
+                    "StartTime": "2025-07-17T10:00:00+05:30",
+                    "EndTime": "2025-07-17T10:30:00+05:30",
+                    "NumAttendees": 3,
+                    "Attendees": [
+                        "userone.amd@gmail.com",
+                        "usertwo.amd@gmail.com",
+                        "userthree.amd@gmail.com"
+                    ],
+                    "Summary": "Team Meet"
+                },
+                {
+                    "StartTime": "2025-07-17T13:00:00+05:30",
+                    "EndTime": "2025-07-17T14:00:00+05:30",
+                    "NumAttendees": 1,
+                    "Attendees": [
+                        "SELF"
+                    ],
+                    "Summary": "Lunch with Customers"
+                },
+                {
+                    "StartTime": "2025-07-17T10:30:00+05:30",
+                    "EndTime": "2025-07-17T11:00:00+05:30",
+                    "NumAttendees": 3,
+                    "Attendees": [
+                        "userone.amd@gmail.com",
+                        "usertwo.amd@gmail.com",
+                        "userthree.amd@gmail.com"
+                    ],
+                    "Summary": "Agentic AI Project Status Update"
+                }
+            ]
+        }
+    ],
+    "Subject": "Agentic AI Project Status Update",
+    "EmailContent": "Hi team, let's meet on Thursday for 30 minutes to discuss the status of Agentic AI Project.",
+    "EventStart": "2025-07-17T10:30:00+05:30",
+    "EventEnd": "2025-07-17T11:00:00+05:30",
+    "Duration_mins": "30",
+    "MetaData": {}
 }
 ```
 
@@ -142,31 +212,6 @@ curl -X POST http://localhost:5000/schedule \
 
 5. **Global Team Ready**: Bilingual training ensures robust performance across international teams and cross-cultural contexts.
 
-## 🚦 Getting Started
-
-1. **Prerequisites**:
-   - Python 3.8+
-   - CUDA-compatible GPU (for optimal performance)
-   - 16GB+ RAM recommended
-
-2. **Quick Start**:
-   ```bash
-   # Clone and setup
-   git clone https://github.com/your-org/agentic-ai-scheduler.git
-   cd agentic-ai-scheduler
-   python3 -m venv venv && source venv/bin/activate
-   
-   # Install and run
-   pip install -r requirements.txt
-   python app.py
-   ```
-
-3. **Test the System**:
-   ```bash
-   curl -X POST http://localhost:5000/schedule \
-        -H "Content-Type: application/json" \
-        -d @sample_request.json
-   ```
 
 ## 🔮 Features
 
@@ -180,9 +225,9 @@ curl -X POST http://localhost:5000/schedule \
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch
+3. Commit your changes 
+4. Push to the branch
 5. Open a Pull Request
 
 
