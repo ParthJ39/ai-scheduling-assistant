@@ -1,6 +1,5 @@
-# Agentic AI Meeting Scheduler
-
-**AMD MI300 GPU HACKATHON PROJECT**
+# AMD MI300 GPU HACKATHON PROJECT
+**Agentic AI Meeting Scheduler**
 
 An intelligent meeting coordination system that autonomously schedules meetings, resolves conflicts, and optimizes calendars using natural language processing and AI-powered decision making.
 
